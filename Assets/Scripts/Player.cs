@@ -6,15 +6,26 @@ public class Player : MonoBehaviour
 {
     private Vector3 movementVector;
     [SerializeField] private float speed;
+    [SerializeField] private Animator _animator;
 
     private void Update()
     {
         MovementHandler();
     }
 
+    private void FixedUpdate()
+    {
+        transform.position += movementVector.normalized * speed * Time.fixedDeltaTime;
+    }
     private void MovementHandler()
     {
-        movementVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        transform.position += movementVector.normalized * speed * Time.deltaTime;
+        movementVector.x = Input.GetAxisRaw("Horizontal");
+        movementVector.y = Input.GetAxisRaw("Vertical");
+
+        _animator.SetFloat( "Horizontal",movementVector.x);
+        _animator.SetFloat( "Vertical", movementVector.y);
+        _animator.SetFloat("Speed", movementVector.sqrMagnitude);
     }
+
+
 }
