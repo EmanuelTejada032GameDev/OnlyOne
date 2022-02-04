@@ -62,6 +62,8 @@ public class Player : MonoBehaviour
         {
             objectReached.gameObject.GetComponent<Enemy>().TakeDamage(_damageAmount);
         }
+        GetComponent<Player>().enabled = false;
+        StartCoroutine(EnableControllerAfterAttack(1f));
 
         
     }
@@ -72,5 +74,11 @@ public class Player : MonoBehaviour
             return;
 
         Gizmos.DrawWireSphere(_attackPoint.position, _attackRange);
+    }
+
+    IEnumerator EnableControllerAfterAttack(float time)
+    {
+        yield return new WaitForSeconds(time);
+        GetComponent<Player>().enabled = true;
     }
 }
