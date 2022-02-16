@@ -51,6 +51,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    internal void takeDamage(object damage)
+    {
+        throw new NotImplementedException();
+    }
+
     private void Attack()
     {
         _animator.SetTrigger("Attack");
@@ -63,7 +68,7 @@ public class Player : MonoBehaviour
             objectReached.gameObject.GetComponent<Enemy>().TakeDamage(_damageAmount);
         }
         GetComponent<Player>().enabled = false;
-        StartCoroutine(EnableControllerAfterAttack(1f));
+        StartCoroutine(EnableControllerAfterAttack(.5f));
 
         
     }
